@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "GetVerified",
+  "name": "Auth News",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
@@ -8,7 +8,12 @@
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "index.html",
-    "default_title": "React Ext"
+    "default_title": "Get Verified"
   },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "https://ipfs.io/"
+  ],
   "version": "1.0"
 }
