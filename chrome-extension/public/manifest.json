@@ -1,19 +1,16 @@
 {
   "short_name": "GetVerified",
   "name": "Auth News",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
   "manifest_version": 2,
   "browser_action": {
+    "default_icon": "icon-not-sure.png",
     "default_popup": "index.html",
     "default_title": "Get Verified"
   },
   "permissions": [
-    "tabs",
     "activeTab",
-    "https://ipfs.io/"
+    "<all_urls>"
   ],
-  "version": "1.0"
+  "version": "1.0",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
