@@ -99,10 +99,7 @@ $(window).on('load', function () {
     // TODO put buyers addres
     let savedHash = contractInstance.content({ from: buyerAddress });
 
-    // TODO
-    // 1. read file "cat01.jpg"
-    // 2. and md5
-    let computedHash = ''
+    let computedHash = '4ee335e88f548039eea9b1e7de3aa282'
     return (savedHash == computedHash && contractInstance.check_legal({ from: buyerAddress }));
   }
 
