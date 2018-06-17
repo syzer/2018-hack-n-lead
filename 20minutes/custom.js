@@ -87,7 +87,10 @@ $(window).on('load', function () {
     $('#content').text('I has web3!!!');
     window.web3 = new Web3(web3.currentProvider);
   } else {
-    var errorMsg = 'I doesn\'t has web3 :( Please open in Google Chrome Browser and install the Metamask extension.';
+    
+    //Web3 = require('web3');
+    
+    var errorMsg = 'It doesn\'t has web3 :( Please open in Google Chrome Browser and install the Metamask extension.';
     $('#content').text(errorMsg);
     console.log(errorMsg);
     return;
