@@ -1,6 +1,7 @@
 $(window).on('load', function () {
   // on Ropsten
   var contractAddress = "0x3fd2f126495a5e02ddaea1b1a36027b8c1c0ed58";
+  var buyersAddress = "0xbc3c30edd3b1894a1f29af1edcd4a3308f02b6ef";
   var contractAbi = [
     {
       "constant": false,
