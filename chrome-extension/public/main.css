@@ -1,0 +1,14 @@
+body {
+    /*background: #fbf4ff !important;*/
+}
+
+img.verified {
+    border: 1px solid transparent!important;
+    padding: 5px!important;
+    border-bottom-color: blue!important;
+}
+
+img.unverified {
+    border: 10px solid transparent!important;
+    border-bottom-color: orangered!important;
+}
