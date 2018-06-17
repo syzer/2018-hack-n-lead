@@ -1,8 +1,7 @@
 const images = document.querySelectorAll("img")
 let verified = true
 
-// TODO here solidity
-const verifyHash = hash => hash == '34232432dasdsf'
+const verifyHash = hash => hash == '34232432dasdsd' || hash == '0x606463d90cb5abdb7a258136dc9f0fba48edd555bef17fdbe92b11849a8b0303'
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   let data = request.data || {}
