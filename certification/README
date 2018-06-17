@@ -1,0 +1,29 @@
+
+// Run ganache
+npm install ganache-cli web3@0.20.3 solc
+node_modules/.bin/ganache-cli
+
+// Launch node
+Web3 = require('web3');
+web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545")); 
+web3.eth.accounts;
+web3.eth.getBalance('0x0a33055daa516fc57b2afa6a1ebf9d128b878ec9').toNumber();
+
+// compile 
+code = fs.readFileSync('Concord.sol').toString()
+solc = require('solc')
+compiledCode = solc.compile(code)
+
+// deploy
+abiDefinition = JSON.parse(compiledCode.contracts[':Concorde'].interface)
+
+concordeContract = web3.eth.contract(abiDefinition)
+
+byteCode = compiledCode.contracts[':Concorde'].bytecode
+
+deployedContract = ConcordeContract.new("content",{data: byteCode, from: web3.eth.accounts[0], gas: 4700000})
+
+deployedContract.address
+
+// call solidity functions
+deployedContract.
