@@ -32,20 +32,20 @@ class App extends Component {
 
     this.setState({
       icon: unVerified,
-      verifiedString: 'Unverified! Warning dangerous website.',
+      verifiedString: 'Unverified!',
     })
 
     let data = 'UnVerified'
 
     // eslint-disable-next-line
-    chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       // eslint-disable-next-line
-      chrome.tabs.sendMessage(tabs[0].id, {data}, response => {
+      chrome.tabs.sendMessage(tabs[0].id, { data }, response => {
         console.error(JSON.stringify(response))
         response.data = response.data || []
         // eslint-disable-next-line
         this.setState({
-          resources: response.data
+          resources: JSON.parse(response.data)
         })
       })
     })
@@ -65,13 +65,12 @@ class App extends Component {
         <header className="App-header">
           <img src={this.state.icon} className="App-logo" alt="logo"/>
           <h1 className="App-title">Your content is: {this.state.verifiedString}</h1>
-          {/*{this.state.resources.map((e, i) =>*/}
-              {/*<img*/}
-              {/*src={e.src} className={e.className} alt="adapter stack" height={100}/>)}*/}
-
-          <img
-            src="https://ipfs.io/ipfs/QmVZdABgbYJFwDnPxficeH6h7RpqnKvzCnMqz3TZnwaE1L" alt="adapter stack"
-            height={200}/>
+          {this.state.resources.map((e, i) =>
+            <img
+              src={e.src}
+              key={i}
+              className={e.className}
+              height={100}/>)}
         </header>
       </div>
     )
