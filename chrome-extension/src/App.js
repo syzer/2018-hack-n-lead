@@ -22,7 +22,6 @@ class App extends Component {
 
     // payment API/ smart contract
     setTimeout(() => {
-      // console.error(JSON.stringify(window.location))
       this.setUnverified()
     }, 1500)
   }
