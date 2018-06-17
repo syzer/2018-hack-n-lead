@@ -106,4 +106,4 @@ $(window).on('load', function () {
     return (savedHash == computedHash && contractInstance.check_legal({ from: buyerAddress }));
   }
 
-}
+})
