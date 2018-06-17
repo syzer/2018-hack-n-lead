@@ -29,6 +29,7 @@ class App extends Component {
 
   setUnverified = () => {
     window.chrome.browserAction.setBadgeText({ text: 'X' })
+
     this.setState({
       icon: unVerified,
       verifiedString: 'Unverified! Warning dangerous website.',
@@ -40,41 +41,15 @@ class App extends Component {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
       // eslint-disable-next-line
       chrome.tabs.sendMessage(tabs[0].id, {data}, response => {
-        console.log('response', response)
+        console.error(JSON.stringify(response))
+        response.data = response.data || []
         // eslint-disable-next-line
         this.setState({
-          resources: [response]
+          resources: response.data
         })
-        console.log('success')
       })
     })
   }
-
-
-  // componentDidMount() {
-  //   // Add listener when component mounts
-  //   window.chrome.runtime.onMessage.addListener(this.handleMessage)
-  // }
-  //
-  // handleMessage = (msg) => {
-  //   alert(msg)
-  //   // Handle received messages
-  //   if (msg.target === 'app') {
-  //     if (msg.type === 'setMessage') {
-  //       this.setState({ message: msg.body })
-  //     }
-  //   }
-  // }
-  //
-  // componentWillUnmount() {
-  //   alert('ssss')
-  //   // Remove listener when this component unmounts
-  //   window.chrome.runtime.onMessage.removeListener(this.handleMessage)
-  // }
-
-  // componentWillUnmount = () => {
-  //   window.chrome.browserAction.setBadgeText({ text: '' })
-  // }
 
   setVerified = () => {
     window.chrome.browserAction.setBadgeText({ text: 'V' })
@@ -82,24 +57,18 @@ class App extends Component {
       icon: verified,
       verifiedString: 'All assets on that page are verified.',
     })
-
-    // Bellow done't work on canary, why ?
-    // @see https://developer.chrome.com/extensions/browserAction
-    // eslint-disable-next-line
-    // chrome.browserAction.setIcon({
-    //   path : 'icon-verified.png'
-    // })
   }
 
   render() {
-    console.log('react app running 2')
     return (
       <div className="App">
         <header className="App-header">
           <img src={this.state.icon} className="App-logo" alt="logo"/>
           <h1 className="App-title">Your content is: {this.state.verifiedString}</h1>
-          {this.state.resources.map((e, i) =>
-            <p key={i}>Resource: {e}</p>)}
+          {/*{this.state.resources.map((e, i) =>*/}
+              {/*<img*/}
+              {/*src={e.src} className={e.className} alt="adapter stack" height={100}/>)}*/}
+
           <img
             src="https://ipfs.io/ipfs/QmVZdABgbYJFwDnPxficeH6h7RpqnKvzCnMqz3TZnwaE1L" alt="adapter stack"
             height={200}/>

@@ -15,9 +15,10 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "all_frames": true,
       "css": ["/main.css"],
-      "js": ["/main.js"]
+      "js": ["/main.js"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
