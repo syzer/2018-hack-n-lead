@@ -20,41 +20,43 @@ class App extends Component {
       verifiedString: 'Verified'
     }
 
-    // payment API/ smart contract
-    setTimeout(() => {
-      this.setUnverified()
-    }, 1500)
-  }
-
-  setUnverified = () => {
-    window.chrome.browserAction.setBadgeText({ text: 'X' })
-
-    this.setState({
-      icon: unVerified,
-      verifiedString: 'Unverified!',
-    })
-
     let data = 'UnVerified'
-
     // eslint-disable-next-line
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       // eslint-disable-next-line
       chrome.tabs.sendMessage(tabs[0].id, { data }, response => {
         console.error(JSON.stringify(response))
         response.data = response.data || []
-        // eslint-disable-next-line
-        this.setState({
-          resources: JSON.parse(response.data)
-        })
+
+        const resources = JSON.parse(response.data)
+        const hasUnverified = resources
+          .find(({ className }) => className.trim() === 'unverified')
+
+        if (hasUnverified) {
+          this.setUnverified(resources)
+        } else {
+          this.setVerified(resources)
+        }
+
       })
     })
   }
 
-  setVerified = () => {
+  setUnverified = resources => {
+    window.chrome.browserAction.setBadgeText({ text: 'X' })
+    this.setState({
+      icon: unVerified,
+      verifiedString: 'Unverified!',
+      resources: resources || []
+    })
+  }
+
+  setVerified = resources => {
     window.chrome.browserAction.setBadgeText({ text: 'V' })
     this.setState({
       icon: verified,
       verifiedString: 'All assets on that page are verified.',
+      resources: resources || []
     })
   }
 
