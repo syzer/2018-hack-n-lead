@@ -3,13 +3,20 @@
   <title>Cutest cats</title>
   <script src="md5.js"></script>
   <script src="jquery-3.2.1.js"></script>
+  <script src="verify.js"></script>
+  <link rel="stylesheet" type="text/css" href="verified_content.css">
 </head>
 <body>
 <h1>Welcome cat lovers</h1>
 <div id="content">Here is the winner of the Zurich Cats</div>
-<img src="cat01.jpg" alt="cat" width="50" height="50" border="0" ver="4ee335e88f548039eea9b1e7de3aa282">
+<div class="container">
+<img src="cat01.jpg" alt="cat" class ="image"
+style="width:100%" width="50" height="50" border="0" ver="4ee335e88f548039eea9b1e7de3aa282">
+<div class="middle"> 
+
 <button id="verify">Verify</button>
 <p id=verification_result> ? </p>
-<script src="verify.js"></script>
+	<a href="https://ropsten.etherscan.io/tx/0x8c9fcf25ab17b4e7f5cf44114344a642fbea57f8932a29a2aefe0254036987b2"> See receipt on Etherscan</a>
+</div> </div>
 </body>
 </html>

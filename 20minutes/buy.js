@@ -1,16 +1,7 @@
 
 $(window).on('load', function () {
-console.log('hello');
-//Web3 = require('~/ethereum_voting_dapp/chapter1/web3')
-//Web3 = require('web3');
-//web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-//VotingContract = web3.eth.contract(abiDef);
-//contractInstance = ConcordeContract.at('0x0fdf4894a3b7c5a101686829063be52ad45bcfb7');
   // on Ropsten
-//  var contractAddress = "0x3fd2f126495a5e02ddaea1b1a36027b8c1c0ed58";
 var contractAddress = "0x61d2ac594b2bce86bd68c5d98f83de65107084d4"; 
-//  var buyerAddress = "0xbc3c30edd3b1894a1f29af1edcd4a3308f02b6ef";
-//var buyerAddress = "0x4b0897b0513fdc7c541b6d9d7e929c4e5364d2db";
 var buyerAddress = "0xb8a800fd20deb4801a32264984116918ff88f185";
   var contractAbi = [
     {
@@ -99,7 +90,7 @@ $(document).ready(function(){
     // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
   } else {
-    var errorMsg = 'It doesn\'t have web3...';
+    var errorMsg = 'It doesn\'t have web3... Please install Metamask';
     $('#content').text(errorMsg);
     console.log(errorMsg);
     return;
@@ -111,28 +102,38 @@ $(document).ready(function(){
 
   
 
-  function verify() {
-    // TODO make a button to read and md5 the published content
-    let computedHash = '4ee335e88f548039eea9b1e7de3aa282'
-    var savedHash
-    contractInstance.content({ from: buyerAddress, gas: 470400 }, function(error,res) { if (!error) {
-	savedHash = res;
+  function buy() {
+    // TODO when the Buy button is clicked, launch transaction on cat01.jpg
+    let computedHash = '4ee335e88f548039eea9b1e7de3aa282';
+    let buyerAddress = web3.eth.accounts[0];
+	console.log(buyerAddress);
+    var fee;
+    contractInstance.fee({from:buyerAddress}, function(error, val) {if (!error) {fee=val;} else { fee=10000;}});
+    console.log("fee "+fee);
+    contractInstance.buyContent({from: buyerAddress, gas: 470400,value:10000 }, 
+      function(error,transaction_hash) { if (!error) {
+	console.log("bought it"); 
+	console.log(transaction_hash);
+	// offer the download of the acquired picture
+	// link to the transaciton check
+	let url = "\"https://ropsten.etherscan.io/tx/"+transaction_hash+"\"";
+	$('#buy_receipt').html("<a href="+
+		url+">See the transaction receipt</a>"); 
+	// generate ready-to-copy html+js to verify to checks the rights on the picture 
+console.log(
+"<div class=\"container\" id=content_"+computedHash+">" + 
+"<link rel=\"stylesheet\" type=\"text/css\" href=\"verified_content.css\"> "+
+"<img src=\"cat01.jpg\" alt=\"cat\" class=\"image\" style=\"width:100%\" width=\"50\" height=\"50\" border=\"0\" >"+
+"<div class=\"middle\"><div class=\"text\">"+"Owner,Time,date"+"</div></div>"
+);
+	//hide the buy button
+	$('#buy').hide();
 	} else {
-	console.error(error); return;}})
-    let callback = function(error,legal){
-	if(!error) {    
-		console.log("check_legal? " + legal);
-		if ((savedHash == computedHash) && legal ){
-			$('#verification_result').text("Verified");	
-     		} else {
-			$('#verification_result').text("Verification failed");	
-			
-		}
-        } else console.error(error);}
-   contractInstance.check_legal({ from: buyerAddress, gas: 470400}, callback )
+	  console.error(error); 
+	  return;}});
   }
 
-  $('#verify').on('click', verify);
+  $('#buy').on('click', buy);
 
 })
 
